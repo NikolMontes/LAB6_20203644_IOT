@@ -3,6 +3,7 @@ package com.example.telemoney;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -71,25 +72,29 @@ public class ResumenActivity extends AppCompatActivity {
         });
 
         bottomNav.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.nav_ingresos:
-                    startActivity(new Intent(this, IngresosActivity.class));
-                    finish();
-                    return true;
-                case R.id.nav_egresos:
-                    startActivity(new Intent(this, EgresosActivity.class));
-                    finish();
-                    return true;
-                case R.id.nav_resumen:
-                    return true;
-                case R.id.nav_logout:
-                    FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(this, LoginActivity.class));
-                    finish();
-                    return true;
-                default:
-                    return false;
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.nav_ingresos) {
+                return true;
+
+            } else if (itemId == R.id.nav_egresos) {
+                startActivity(new Intent(this, EgresosActivity.class));
+                finish();
+                return true;
+
+            } else if (itemId == R.id.nav_resumen) {
+                startActivity(new Intent(this, ResumenActivity.class));
+                finish();
+                return true;
+
+            } else if (itemId == R.id.nav_logout) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                return true;
             }
+
+            return false;
         });
 
         bottomNav.setSelectedItemId(R.id.nav_resumen);

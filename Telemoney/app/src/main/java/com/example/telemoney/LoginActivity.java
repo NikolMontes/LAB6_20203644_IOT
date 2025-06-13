@@ -2,6 +2,7 @@ package com.example.telemoney;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,7 +43,6 @@ import java.util.Arrays;
 public class LoginActivity extends AppCompatActivity {
 
     private TextInputEditText etEmail, etPassword;
-    private Button loginBtn, registerBtn, googleBtn;
     private LoginButton fbLoginBtn;
     private FirebaseAuth auth;
     private CallbackManager callbackManager;
@@ -73,16 +73,20 @@ public class LoginActivity extends AppCompatActivity {
 
         // Iniciar sesión por correo
         btnCorreo.setOnClickListener(v -> loginConCorreo());
+        if (btnCorreo == null) {
+            Log.e("LoginActivity", "btn_login no encontrado en el layout!");
+            return;
+        }
 
         // --- Email/Password Login ---
-        loginBtn.setOnClickListener(v -> {
-            String email = etEmail.getText().toString();
-            String password = etPassword.getText().toString();
-
-            auth.signInWithEmailAndPassword(email, password)
-                    .addOnSuccessListener(authResult -> goToHome())
-                    .addOnFailureListener(e -> Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-        });
+//        loginBtn.setOnClickListener(v -> {
+//            String email = etEmail.getText().toString();
+//            String password = etPassword.getText().toString();
+//
+//            auth.signInWithEmailAndPassword(email, password)
+//                    .addOnSuccessListener(authResult -> goToHome())
+//                    .addOnFailureListener(e -> Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+//        });
 
         // Facebook Login
         btnFacebook.setOnClickListener(v -> {
